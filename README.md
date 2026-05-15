@@ -6,7 +6,7 @@ Real-time 3D orientation estimation using an **Arduino Nano R4** and **MPU6050**
 
 ## Overview
 
-Most hobby IMU projects rely on libraries like Mahony or Madgwick, which are great but abstract away the math. This project implements orientation tracking from scratch using the DCM approach — a rotation matrix that continuously maps from the sensor's body frame to the world frame.
+Many IMU projects rely on libraries like Mahony or Madgwick, which are great but abstract away the math. This project tracks the 3D orientation of an MPU6050 IMU sensor in real time using an Arduino Nano R4. Instead of relying on a filter library, orientation is computed from scratch using a rotation matrix that is updated each loop with gyroscope data, corrected for drift using the accelerometer, and kept numerically stable via Gram-Schmidt orthonormalization. The resulting roll, pitch, and yaw angles are streamed over serial and visualized live in Processing using a 3D airplane model.
 
 **Key ideas:**
 
@@ -29,7 +29,7 @@ Most hobby IMU projects rely on libraries like Mahony or Madgwick, which are gre
 
 | MPU6050 Pin | Arduino Pin |
 |---|---|
-| VCC | 3.3V |
+| VCC | 5V |
 | GND | GND |
 | SDA | A4 |
 | SCL | A5 |
@@ -110,9 +110,8 @@ All values are in **degrees**.
 
 The serial output is read by a **Processing IDE** sketch that renders a 3D airplane model rotated in real time according to the incoming roll/pitch/yaw values.
 
-The 3D airplane model used in the visualization is courtesy of **toys_N_joys** on Free3D:
-
-> *Toy Airplane (Cinema 4D / OBJ)* — [free3d.com](https://free3d.com/3d-model/toy-airplane-cinema-4d-obj-280982.html)
+The 3D airplane modelw was borrowed from Free3D:
+https://free3d.com/3d-model/toy-airplane-cinema-4d-obj-280982.html 
 
 ---
 
@@ -135,9 +134,9 @@ Install via the Arduino Library Manager:
 
 1. Wire the MPU6050 to the Arduino Nano R4 as shown above
 2. Install the required Arduino libraries
-3. Upload `arduino_code.cpp` to the board
+3. Upload `arduino_code.ino` to the board
 4. Open the Processing sketch and set the correct serial port
-5. Run the Processing sketch — the 3D model will track the sensor orientation live
+5. Run the Processing sketch to visualize 3D space orientation
 
 ---
 
